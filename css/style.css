@@ -150,6 +150,7 @@ body {
     top: 0;
     width: 100%;
     background: rgba(15, 23, 42, 0.9);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 1rem 0;
@@ -241,6 +242,7 @@ body {
 .theme-label {
     color: var(--text-secondary);
     font-size: 0.9rem;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -660,6 +662,13 @@ section {
     color: var(--secondary-color);
     animation: floatIcon 4s ease-in-out infinite;
 }
+
+.floating-icon.icon-1 { top: 20%; right: 10%; }
+.floating-icon.icon-2 { top: 35%; right: 5%; }
+.floating-icon.icon-3 { top: 50%; right: 15%; }
+.floating-icon.icon-4 { top: 65%; right: 8%; }
+.floating-icon.icon-5 { top: 80%; right: 12%; }
+.floating-icon.icon-6 { top: 45%; right: 25%; }
 
 .floating-icon.rocket {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
