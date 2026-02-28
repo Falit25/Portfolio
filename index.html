@@ -22,6 +22,12 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#contact" class="hire-btn">Hire Me</a></li>
+                <li><div class="theme-toggle-container">
+                    <div class="theme-toggle" id="themeToggle">
+                        <div class="toggle-slider"></div>
+                    </div>
+                    <span class="theme-label">Light mode</span>
+                </div></li>
             </ul>
         </div>
     </nav>
@@ -58,7 +64,7 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <div class="project-placeholder"></div>
+                        <img src="assets/XrayDetection.png" alt="XRAY Abnormality Detection Project">
                     </div>
                     <div class="project-content">
                         <h3>XRAY Abnormality Detection</h3>
@@ -78,8 +84,28 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-image project-image-blue">
-                        <div class="project-placeholder"></div>
+                    <div class="project-image">
+                        <img src="assets/Hackpad.png" alt="Falit's Hackpad Project">
+                    </div>
+                    <div class="project-content">
+                        <h3>Falit'sHackpad </h3>
+                        <p>Falit's Hackpad is a custom 10-key macro pad built using a XIAO RP2040 DIP board and KMK firmware.</p>
+                        <div class="project-tech">
+                            <span>KiCad</span>
+                            <span>KMK Firmware</span>
+                            <span>RP2040</span>
+                            <span>Arduino</span>
+                            <span>Electronics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Falit25/Falit-sHACKPAD.git" class="btn btn-small" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/Eco Tracker.png" alt="EcoTracker Project">
                     </div>
                     <div class="project-content">
                         <h3>EcoTracker</h3>
@@ -254,17 +280,17 @@
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="Falit Nautiyal" required>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="falitnautiyal7@gmail.com" required>
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" placeholder="xyz@abc.com" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+                            <textarea id="message" name="message" placeholder="Interested in working together? Send me a message!" required></textarea>
                         </div>
                         
                         <button type="submit" class="btn btn-primary btn-full">

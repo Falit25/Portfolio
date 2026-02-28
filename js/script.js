@@ -139,12 +139,21 @@ function handleParallax() {
 // Navbar Scroll Effect
 function handleNavbarScroll() {
     const navbar = document.querySelector('.navbar');
+    const body = document.body;
     
     window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            if (body.classList.contains('light-theme')) {
+                navbar.style.background = 'rgba(249, 250, 251, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            }
         } else {
-            navbar.style.background = 'rgba(15, 23, 42, 0.9)';
+            if (body.classList.contains('light-theme')) {
+                navbar.style.background = 'rgba(249, 250, 251, 0.9)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.9)';
+            }
         }
     });
 }
@@ -217,34 +226,51 @@ function typeWriter() {
     setTimeout(type, 1000);
 }
 
-// Bidirectional Scroll Animation
-function bidirectionalScroll() {
+// Enhanced Bidirectional Scroll Animation
+function enhancedScrollAnimation() {
     let lastScrollTop = 0;
     
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    function handleScroll() {
+        const scrollTop = window.pageYOffset;
         const scrollDirection = scrollTop > lastScrollTop ? 'down' : 'up';
         
-        // Apply different animations based on scroll direction
-        document.querySelectorAll('.project-card').forEach((card, index) => {
-            const rect = card.getBoundingClientRect();
-            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        document.querySelectorAll('.project-card, .section-title, .section-subtitle, .skill-item, .hero-description, .hero-buttons, .social-links, p, .skills-container, .project-tech, .project-links').forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const isInViewport = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
             
-            if (isVisible) {
-                if (scrollDirection === 'down') {
-                    card.style.transform = `translateX(${index % 2 === 0 ? '-' : ''}20px) rotateY(${index % 2 === 0 ? '-' : ''}5deg)`;
-                } else {
-                    card.style.transform = `translateX(${index % 2 === 0 ? '' : '-'}20px) rotateY(${index % 2 === 0 ? '' : '-'}5deg)`;
-                }
-                
-                setTimeout(() => {
-                    card.style.transform = 'translateX(0) rotateY(0)';
-                }, 300);
+            if (isInViewport) {
+                // Element is in viewport - show it
+                element.classList.remove('hidden');
+                element.classList.add('visible');
+            } else {
+                // Element is out of viewport - hide it
+                element.classList.remove('visible');
+                element.classList.add('hidden');
             }
         });
         
         lastScrollTop = scrollTop;
+    }
+    
+    // Initialize elements
+    document.querySelectorAll('.project-card, .section-title, .section-subtitle, .skill-item, .hero-description, .hero-buttons, .social-links, p, .skills-container, .project-tech, .project-links').forEach(el => {
+        el.classList.add('scroll-animate', 'hidden');
     });
+    
+    // Add scroll listener with throttling
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                handleScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // Initial check
+    handleScroll();
 }
 
 // Floating Animation for Tech Icons
@@ -266,17 +292,63 @@ function floatingTechIcons() {
     });
 }
 
+// Theme Toggle Functionality
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const navbar = document.querySelector('.navbar');
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        body.classList.add('light-theme');
+        themeToggle.classList.add('active');
+        updateNavbarBackground();
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-theme');
+        themeToggle.classList.toggle('active');
+        
+        if (body.classList.contains('light-theme')) {
+            localStorage.setItem('theme', 'light');
+        } else {
+            localStorage.setItem('theme', 'dark');
+        }
+        
+        updateNavbarBackground();
+    });
+    
+    function updateNavbarBackground() {
+        const scrollY = window.scrollY;
+        if (scrollY > 100) {
+            if (body.classList.contains('light-theme')) {
+                navbar.style.background = 'rgba(249, 250, 251, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            }
+        } else {
+            if (body.classList.contains('light-theme')) {
+                navbar.style.background = 'rgba(249, 250, 251, 0.9)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.9)';
+            }
+        }
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     createParticles();
     smoothScroll();
     handleScrollAnimations();
+    enhancedScrollAnimation();
     handleParallax();
     handleNavbarScroll();
     handleContactForm();
     typeWriter();
-    bidirectionalScroll();
     floatingTechIcons();
+    initThemeToggle();
     
     // Add loading animation
     document.body.style.opacity = '0';
